@@ -25,16 +25,16 @@ If you would like to get in touch—or share a passion for LLM interpretability 
 
 ## 📄 Publications
 
-- **Wang, Xu**, Z Li, B Wang, Y Hu, D Zou. *Model Unlearning via Sparse Autoencoder Subspace Guided Projections*  
+- **Xu Wang**, Z Li, B Wang, Y Hu, D Zou. *Model Unlearning via Sparse Autoencoder Subspace Guided Projections*  
   _arXiv preprint arXiv:2505.24428_
 
-- Li, Z, **Wang, Xu**, Y Yang, Z Yao, H Xiong, M Du. *Feature Extraction and Steering for Enhanced Chain-of-Thought Reasoning in Language Models*  
+- Li, Z, **Xu Wang**, Y Yang, Z Yao, H Xiong, M Du. *Feature Extraction and Steering for Enhanced Chain-of-Thought Reasoning in Language Models*  
   _arXiv preprint arXiv:2505.15634_
 
-- **Wang, Xu**, et al. *Towards Understanding Fine-Tuning Mechanisms of LLMs via Circuit Analysis*  
+- **Xu Wang**, et al. *Towards Understanding Fine-Tuning Mechanisms of LLMs via Circuit Analysis*  
   _ICML 2025 (accepted)_
 
-- Cheung, L, **Wang, Xu**, J Zhang, RKM Poon, ASM Lau. *Applications of Generative AI: A Case Study of AI Doctor*  
+- Cheung, L, **Xu Wang**, J Zhang, RKM Poon, ASM Lau. *Applications of Generative AI: A Case Study of AI Doctor*  
   _Southeast Decision Sciences Institute (SEDSI) Conference, 29 Jan 2025 – 31 Jan 2025 (accepted)_
 
 ---
