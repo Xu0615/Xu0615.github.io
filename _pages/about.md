@@ -3,7 +3,7 @@
 
 ## 👋 About Me
 
-I am currently a research assistant at the [School of Data Science (SDS), The Chinese University of Hong Kong, Shenzhen (CUHKSZ)](https://sds.cuhk.edu.cn/), where I work under the supervision of [Prof. Lihai Zhou](https://scholar.google.com/citations?hl=zh-CN&user=z8_x7C8AAAAJ) and [Prof. Benyou Wang](https://wabyking.github.io/old.html). My research focuses on **[AI Interpretability & Trustworthy](https://www.anthropic.com/research#interpretability)**, aiming to better understand Large Language Models (LLMs) and to design more advanced and safer AI.
+I am currently a research assistant at the [School of Data Science (SDS), The Chinese University of Hong Kong, Shenzhen (CUHKSZ)](https://sds.cuhk.edu.cn/), where I work under the supervision of [Prof. HaiZhou Li](https://scholar.google.com/citations?hl=zh-CN&user=z8_x7C8AAAAJ) and [Prof. Benyou Wang](https://wabyking.github.io/old.html). My research focuses on **[AI Interpretability & Trustworthy](https://www.anthropic.com/research#interpretability)**, aiming to better understand Large Language Models (LLMs) and to design more advanced and safer AI.
 
 Previously, I earned my Bachelor’s degree from the [University of Electronic Science and Technology of China (UESTC)](https://www.uestc.edu.cn/) and obtained my Master’s degree in Artificial Intelligence from the [Faculty of Science, The University of Hong Kong (HKU)](https://www.scifac.hku.hk/). I am also an incoming Ph.D. student in AI at the [Department of Data Science, HKU](https://datascience.hku.hk/), advised by [Prof. Difan Zou](https://difanzou.github.io/).
 
