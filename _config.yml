@@ -8,6 +8,8 @@
 # Site Settings
 title                    : "Xu Wang"
 description              : "Focusing on LLMs Interpretability and AI Safety"
+url: "https://xu0615.github.io"  # 必填：你的站点域名（无尾斜杠）
+baseurl: ""                      # 用户主页必须为空
 repository               : "Xu0615/xu0615.github.io"
 google_scholar_stats_use_cdn : true
 
@@ -145,6 +147,7 @@ plugins:
   - jekyll-gist
   - jekyll-feed
   - jekyll-redirect-from
+  - jekyll-seo-tag 
 # mimic GitHub Pages with --safe
 whitelist:
   - jekyll-paginate
