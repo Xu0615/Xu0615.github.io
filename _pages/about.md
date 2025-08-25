@@ -17,7 +17,8 @@ If you would like to get in touch—or share a passion for LLM interpretability 
 
 ## 🗞️ News
 
-- 📝 *[2025.05]* Paper **"Towards Understanding Fine-Tuning Mechanisms of LLMs via Circuit Analysis"** accepted at **ICML 2025**
+- 📝 *[2025.08]* Two Paper [**Feature Extraction and Steering for Enhanced Chain-of-Thought Reasoning in Language Models**](https://arxiv.org/abs/2505.15634) and [**Model Unlearning via Sparse Autoencoder Subspace Guided Projections**](https://arxiv.org/abs/2505.24428) have been accepted at **EMNLP 2025**
+- 📝 *[2025.05]* Paper [**Towards Understanding Fine-Tuning Mechanisms of LLMs via Circuit Analysis**](https://arxiv.org/abs/2502.11812) accepted at **ICML 2025**
 
 ---
 
@@ -26,10 +27,10 @@ If you would like to get in touch—or share a passion for LLM interpretability 
 ## 📄 Publications
 
 - **Xu Wang**, Z Li, B Wang, Y Hu, D Zou. *Model Unlearning via Sparse Autoencoder Subspace Guided Projections*  
-  _arXiv preprint arXiv:2505.24428_
+  _EMNLP 2025 (accepted)_
 
 - Li, Z, **Xu Wang**, Y Yang, Z Yao, H Xiong, M Du. *Feature Extraction and Steering for Enhanced Chain-of-Thought Reasoning in Language Models*  
-  _arXiv preprint arXiv:2505.15634_
+  _EMNLP 2025 (accepted)_
 
 - **Xu Wang**, et al. *Towards Understanding Fine-Tuning Mechanisms of LLMs via Circuit Analysis*  
   _ICML 2025 (accepted)_
