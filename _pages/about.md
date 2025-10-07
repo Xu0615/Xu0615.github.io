@@ -26,6 +26,8 @@ If you would like to get in touch—or share a passion for LLM interpretability 
 
 ## 📄 Publications
 
+### 🏛️ Conference Publications
+
 - **Xu Wang**, Z Li, B Wang, Y Hu, D Zou. *Model Unlearning via Sparse Autoencoder Subspace Guided Projections*  
   _EMNLP 2025 (accepted)_
 
@@ -40,6 +42,13 @@ If you would like to get in touch—or share a passion for LLM interpretability 
 
 ---
 
+### 📘 Preprints on arXiv
+
+- **Xu Wang**, Y Hu, B Wang, D Zou. *Does Higher Interpretability Imply Better Utility? A Pairwise Analysis on Sparse Autoencoders*  
+  [_arXiv:2510.03659_](https://arxiv.org/abs/2510.03659)
+
+---
+
 <span class="anchor" id="experience"></span>
 
 ## 🔬 Experience
@@ -49,6 +58,16 @@ If you would like to get in touch—or share a passion for LLM interpretability 
 
 - **CUHK (ShenZhen) Research Assistant, School of Data Science** (09/2024 – 08/2025)  
   _Research Direction: LLM mechanistic interpretability and AI safety._
+
+
+---
+
+<span class="anchor" id="services"></span>
+
+## 🧩 Services (Conference Reviewers)
+
+- Reviewer for **ICLR**
+- Reviewer for **EMNLP**
 
 ---
 
