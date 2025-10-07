@@ -3,7 +3,7 @@
 
 ## 👋 About Me
 
-I am currently a Ph.D. student in Artificial Intelligence at the [School of Computing and Data Science (CDS), The University of Hong Kong (HKU)](https://www.cds.hku.hk/), advised by [Prof. Difan Zou](https://difanzou.github.io/). Previously, I earned my Bachelor’s degree from the [University of Electronic Science and Technology of China (UESTC)](https://www.uestc.edu.cn/) and obtained my Master’s degree in Artificial Intelligence from the [Faculty of Science, The University of Hong Kong (HKU)](https://www.scifac.hku.hk/).
+I am currently a first-year Ph.D. student in Artificial Intelligence at the [School of Computing and Data Science (CDS), The University of Hong Kong (HKU)](https://www.cds.hku.hk/), advised by [Prof. Difan Zou](https://difanzou.github.io/). Previously, I earned my Bachelor’s degree from the [University of Electronic Science and Technology of China (UESTC)](https://www.uestc.edu.cn/) and obtained my Master’s degree in Artificial Intelligence from the [Faculty of Science, The University of Hong Kong (HKU)](https://www.scifac.hku.hk/).
 
 My research focuses on **AI Interpretability, Trustworthy and Safety**, aiming to better understand Large Language Models (LLMs) and to design more advanced and safer AI. In particular, I am actively exploring [**Circuit Analysis**](https://arxiv.org/abs/2502.11812) and [**Sparse Autoencoders (SAEs)**](https://arxiv.org/abs/2510.03659), with the long-term goal of (1) understanding how LLMs work internally, (2) improving their performance, and (3) building models that are safer and more controllable.
 
@@ -25,7 +25,7 @@ If you would like to get in touch or share a passion for LLM interpretability an
 
 ## 📄 Publications
 
-### 🏛️ Conference Publications
+### Part 1: Conference Publications
 
 - **Xu Wang**, Z Li, B Wang, Y Hu, D Zou. *Model Unlearning via Sparse Autoencoder Subspace Guided Projections*  
   _EMNLP 2025 (accepted)_
@@ -41,7 +41,7 @@ If you would like to get in touch or share a passion for LLM interpretability an
 
 ---
 
-### 📘 Preprints on arXiv
+### Part 2: Preprints on arXiv
 
 - **Xu Wang**, Y Hu, B Wang, D Zou. *Does Higher Interpretability Imply Better Utility? A Pairwise Analysis on Sparse Autoencoders*  
   [_arXiv:2510.03659_](https://arxiv.org/abs/2510.03659)
