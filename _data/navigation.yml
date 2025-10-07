@@ -8,6 +8,8 @@ main:
     url: "#publications"
   - title: "Experience"
     url: "#experience"
+  - title: Services
+    url: /#services
   - title: "Future Plan"
     url: "#future-plan"
 
