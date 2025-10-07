@@ -3,7 +3,7 @@
 
 ## 👋 About Me
 
-I am currently a first-year Ph.D. student in Artificial Intelligence at the [School of Computing and Data Science (CDS), The University of Hong Kong (HKU)](https://www.cds.hku.hk/), advised by [Prof. Difan Zou](https://difanzou.github.io/). Previously, I earned my Bachelor’s degree from the [University of Electronic Science and Technology of China (UESTC)](https://www.uestc.edu.cn/) and obtained my Master’s degree in Artificial Intelligence from the [Faculty of Science, The University of Hong Kong (HKU)](https://www.scifac.hku.hk/).
+I am currently a first-year Ph.D. student ((Fall 2025 intake)) in Artificial Intelligence at the [School of Computing and Data Science (CDS), The University of Hong Kong (HKU)](https://www.cds.hku.hk/), advised by [Prof. Difan Zou](https://difanzou.github.io/). Previously, I earned my Bachelor’s degree in 2023 from the University of Electronic Science and Technology of China (UESTC) and obtained my Master’s degree in 2025 from the Faculty of Science, The University of Hong Kong.
 
 My research focuses on **AI Interpretability, Trustworthy and Safety**, aiming to better understand Large Language Models (LLMs) and to design more advanced and safer AI. In particular, I am actively exploring [**Circuit Analysis**](https://arxiv.org/abs/2502.11812) and [**Sparse Autoencoders (SAEs)**](https://arxiv.org/abs/2510.03659), with the long-term goal of (1) understanding how LLMs work internally, (2) improving their performance, and (3) building models that are safer and more controllable.
 
