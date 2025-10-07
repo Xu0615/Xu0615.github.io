@@ -27,24 +27,20 @@ If you would like to get in touch or share a passion for LLM interpretability an
 
 ### Part 1: Conference Publications
 
-- **Xu Wang**, Z Li, B Wang, Y Hu, D Zou. *Model Unlearning via Sparse Autoencoder Subspace Guided Projections*  
+- **Xu Wang**, Z Li, B Wang, Y Hu, D Zou. *[Model Unlearning via Sparse Autoencoder Subspace Guided Projections](https://arxiv.org/abs/2505.24428)*  
   _EMNLP 2025 (accepted)_
 
-- Li, Z, **Xu Wang**, Y Yang, Z Yao, H Xiong, M Du. *Feature Extraction and Steering for Enhanced Chain-of-Thought Reasoning in Language Models*  
+- Li, Z, **Xu Wang**, Y Yang, Z Yao, H Xiong, M Du. *[Feature Extraction and Steering for Enhanced Chain-of-Thought Reasoning in Language Models](https://arxiv.org/abs/2505.15634)*  
   _EMNLP 2025 (accepted)_
 
-- **Xu Wang**, et al. *Towards Understanding Fine-Tuning Mechanisms of LLMs via Circuit Analysis*  
+- **Xu Wang**, et al. *[Towards Understanding Fine-Tuning Mechanisms of LLMs via Circuit Analysis](https://arxiv.org/abs/2502.11812)*  
   _ICML 2025 (accepted)_
-
-- Cheung, L, **Xu Wang**, J Zhang, RKM Poon, ASM Lau. *Applications of Generative AI: A Case Study of AI Doctor*  
-  _Southeast Decision Sciences Institute (SEDSI) Conference, 29 Jan 2025 – 31 Jan 2025 (accepted)_
 
 ---
 
 ### Part 2: Preprints on arXiv
 
-- **Xu Wang**, Y Hu, B Wang, D Zou. *Does Higher Interpretability Imply Better Utility? A Pairwise Analysis on Sparse Autoencoders*  
-  [_arXiv:2510.03659_](https://arxiv.org/abs/2510.03659)
+- **Xu Wang**, Y Hu, B Wang, D Zou. *[Does Higher Interpretability Imply Better Utility? A Pairwise Analysis on Sparse Autoencoders](https://arxiv.org/abs/2510.03659)*  
 
 ---
 
