@@ -16,8 +16,11 @@ If you would like to get in touch or share a passion for LLM interpretability an
 
 ## 🗞️ News
 
-- 📝 *[2025.08]* Two Paper [**Feature Extraction and Steering for Enhanced Chain-of-Thought Reasoning in Language Models**](https://arxiv.org/abs/2505.15634) and [**Model Unlearning via Sparse Autoencoder Subspace Guided Projections**](https://arxiv.org/abs/2505.24428) have been accepted at **EMNLP 2025**
-- 📝 *[2025.05]* Paper [**Towards Understanding Fine-Tuning Mechanisms of LLMs via Circuit Analysis**](https://arxiv.org/abs/2502.11812) accepted at **ICML 2025**
+- 📝 *[2026.01]* Paper [**Does Higher Interpretability Imply Better Utility? A Pairwise Analysis on Sparse Autoencoders**](https://arxiv.org/abs/2510.03659) accepted to **ICLR 2026**!
+- 📝 *[2025.12]* Paper [**Does Higher Interpretability Imply Better Utility? A Pairwise Analysis on Sparse Autoencoders**](https://arxiv.org/abs/2510.03659) accepted to **NeurIPS 2025 Workshop on ResponsibleFM** as an oral presentation and won the **Outstanding Paper Award**!
+- 📝 *[2025.08]* Two Paper [**Feature Extraction and Steering for Enhanced Chain-of-Thought Reasoning in Language Models**](https://arxiv.org/abs/2505.15634) and [**Model Unlearning via Sparse Autoencoder Subspace Guided Projections**](https://arxiv.org/abs/2505.24428) have been accepted at **EMNLP 2025**!
+- 📝 *[2025.05]* Paper [**Towards Understanding Fine-Tuning Mechanisms of LLMs via Circuit Analysis**](https://arxiv.org/abs/2502.11812) accepted at **ICML 2025**!
+
 
 ---
 
@@ -26,6 +29,9 @@ If you would like to get in touch or share a passion for LLM interpretability an
 ## 📄 Publications
 
 ### Part 1: Conference Publications
+
+- **Xu Wang**, Yan Hu, Benyou Wang, Difan Zou. *[Does higher interpretability imply better utility? A Pairwise Analysis on Sparse Autoencoders](https://arxiv.org/abs/2510.03659)*  
+  _ICLR 2026 (accepted)_
 
 - **Xu Wang**, Z Li, B Wang, Y Hu, D Zou. *[Model Unlearning via Sparse Autoencoder Subspace Guided Projections](https://arxiv.org/abs/2505.24428)*  
   _EMNLP 2025 (accepted)_
@@ -40,7 +46,7 @@ If you would like to get in touch or share a passion for LLM interpretability an
 
 ### Part 2: Preprints on arXiv
 
-- **Xu Wang**, Y Hu, B Wang, D Zou. *[Does Higher Interpretability Imply Better Utility? A Pairwise Analysis on Sparse Autoencoders](https://arxiv.org/abs/2510.03659)*  
+
 
 ---
 
@@ -61,6 +67,7 @@ If you would like to get in touch or share a passion for LLM interpretability an
 
 ## 🧩 Services (Conference Reviewers)
 
+- Reviewer for **ICML**
 - Reviewer for **ICLR**
 - Reviewer for **EMNLP**
 
