@@ -115,4 +115,7 @@ h1:before, .anchor:before {
   padding-right: 8px;
   border: 1px solid #e5e7eb;
   border-radius: 10px;
+  margin: 0;              // ✅ 建议加
+  list-style-position: inside; // ✅ 建议加（可选）
 }
+
