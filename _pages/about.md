@@ -16,11 +16,14 @@ If you would like to get in touch or share a passion for LLM interpretability an
 
 ## 🗞️ News
 
-- 📝 *[2026.01]* Paper [**Does Higher Interpretability Imply Better Utility? A Pairwise Analysis on Sparse Autoencoders**](https://arxiv.org/abs/2510.03659) accepted to **ICLR 2026**!
-- 📝 *[2025.12]* Paper [**Does Higher Interpretability Imply Better Utility? A Pairwise Analysis on Sparse Autoencoders**](https://arxiv.org/abs/2510.03659) accepted to **NeurIPS 2025 Workshop on ResponsibleFM** as an oral presentation and won the **Outstanding Paper Award**!
-- 📝 *[2025.08]* Two Paper [**Feature Extraction and Steering for Enhanced Chain-of-Thought Reasoning in Language Models**](https://arxiv.org/abs/2505.15634) and [**Model Unlearning via Sparse Autoencoder Subspace Guided Projections**](https://arxiv.org/abs/2505.24428) have been accepted at **EMNLP 2025**!
-- 📝 *[2025.05]* Paper [**Towards Understanding Fine-Tuning Mechanisms of LLMs via Circuit Analysis**](https://arxiv.org/abs/2502.11812) accepted at **ICML 2025**!
+<div style="max-height: 220px; overflow-y: auto; padding-right: 8px; border: 1px solid #e5e7eb; border-radius: 10px; padding: 12px;">
 
+- 📝 *[2026.01]* Paper [**Does Higher Interpretability Imply Better Utility? A Pairwise Analysis on Sparse Autoencoders**](https://arxiv.org/abs/2510.03659) accepted to **ICLR 2026**
+- 📝 *[2025.10]* Paper [**Does Higher Interpretability Imply Better Utility? A Pairwise Analysis on Sparse Autoencoders**](https://arxiv.org/abs/2510.03659) accepted to **NeurIPS 2025 Workshop on ResponsibleFM** as an oral presentation and won the **Outstanding Paper Award**!
+- 📝 *[2025.08]* Two Paper [**Feature Extraction and Steering for Enhanced Chain-of-Thought Reasoning in Language Models**](https://arxiv.org/abs/2505.15634) and [**Model Unlearning via Sparse Autoencoder Subspace Guided Projections**](https://arxiv.org/abs/2505.24428) have been accepted at **EMNLP 2025**
+- 📝 *[2025.05]* Paper [**Towards Understanding Fine-Tuning Mechanisms of LLMs via Circuit Analysis**](https://arxiv.org/abs/2502.11812) accepted at **ICML 2025**
+
+</div>
 
 ---
 
