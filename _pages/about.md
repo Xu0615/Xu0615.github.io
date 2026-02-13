@@ -49,6 +49,10 @@ If you would like to get in touch or share a passion for LLM interpretability an
 
 In production~ Please wait patiently ❤
 
+- **Xu Wang**, Bingqing Jiang, Yu Wan, Baosong Yang, Lingpeng Kong, Difan Zou. *[DLM-Scope: Mechanistic Interpretability of Diffusion Language Models via Sparse Autoencoders](https://arxiv.org/abs/2602.05859)*  
+  _arXiv preprint (arXiv:2602.05859), submitted Feb 5, 2026; 23 pages._
+
+
 ---
 
 <span class="anchor" id="experience"></span>
