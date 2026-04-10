@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>糖果星球 MBTI 测试</title>
+  <meta name="description" content="30题可爱风 MBTI 人格测试，生成人格类型与详细解析。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg1: #fff8ef;
+      --bg2: #eaf8ff;
+      --bg3: #f2ffe9;
+      --text: #2f2a26;
+      --sub: #6e6256;
+      --card: rgba(255,255,255,.9);
+      --a1: #ff935d;
+      --a2: #44b7b2;
+      --ring: rgba(255,147,93,.28);
+      --shadow: 0 14px 36px rgba(33,26,17,.12);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Noto Sans SC", sans-serif;
+      color: var(--text);
+      background: linear-gradient(135deg, var(--bg1), var(--bg2) 45%, var(--bg3));
+      overflow-x: hidden;
+    }
+    .bg {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+    }
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      opacity: .55;
+      filter: blur(2px);
+      animation: f 8s ease-in-out infinite;
+    }
+    .b1 { width: 260px; height: 260px; left: -60px; top: -60px; background: #ffd9bf; }
+    .b2 { width: 240px; height: 240px; right: 6%; top: 8%; background: #c9f7e8; animation-delay: -2s; }
+    .b3 { width: 310px; height: 310px; right: -90px; bottom: -120px; background: #dcecff; animation-delay: -4s; }
+    @keyframes f { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+
+    .wrap { width: min(980px, calc(100% - 24px)); margin: 22px auto; }
+    .card {
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,.6);
+      border-radius: 26px;
+      box-shadow: var(--shadow);
+      padding: 22px;
+      backdrop-filter: blur(8px);
+    }
+    .kicker { margin: 0; color: var(--a2); font-family: "Baloo 2", sans-serif; font-size: 18px; }
+    h1,h2,h3 { margin: 0; font-family: "Baloo 2", "Noto Sans SC", sans-serif; }
+    h1 { font-size: clamp(30px, 5vw, 46px); }
+    .sub { margin: 10px 0 16px; line-height: 1.65; color: var(--sub); }
+
+    .screen { display: none; }
+    .screen.active { display: block; }
+
+    .in {
+      width: 100%;
+      border: 2px solid transparent;
+      background: #fff;
+      border-radius: 12px;
+      padding: 11px 12px;
+      font-size: 15px;
+      outline: none;
+    }
+    .in:focus { border-color: var(--a1); }
+    .btn {
+      border: 0;
+      border-radius: 12px;
+      padding: 10px 16px;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    .btn.p {
+      color: #fff;
+      background: linear-gradient(120deg, var(--a1), var(--a2));
+      box-shadow: 0 8px 18px var(--ring);
+    }
+    .btn.l {
+      background: #fff;
+      border: 1px solid #efeae3;
+      color: var(--text);
+    }
+
+    .quiz-top { margin-bottom: 14px; }
+    .prog { margin: 0 0 8px; font-weight: 700; color: var(--sub); }
+    .track { height: 12px; background: #efece7; border-radius: 999px; overflow: hidden; }
+    .fill { width: 0; height: 100%; background: linear-gradient(90deg, var(--a1), var(--a2)); transition: width .25s ease; }
+
+    .q { font-size: clamp(22px, 3.4vw, 30px); line-height: 1.3; margin: 6px 0 12px; }
+    .ops { display: grid; gap: 10px; }
+    .op {
+      text-align: left;
+      background: #fff;
+      border: 2px solid transparent;
+      border-radius: 14px;
+      padding: 13px 14px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    .op:hover { border-color: var(--a2); }
+    .op.sel { border-color: var(--a1); box-shadow: 0 0 0 3px var(--ring); }
+    .row { display: flex; justify-content: space-between; gap: 10px; margin-top: 14px; }
+
+    .type { font-size: clamp(44px, 8vw, 68px); color: var(--a1); line-height: 1; text-align: center; margin-top: 4px; }
+    .name { text-align: center; font-size: 21px; margin: 6px 0 8px; }
+    .sum { color: var(--sub); line-height: 1.65; text-align: center; max-width: 760px; margin: 0 auto; }
+
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; margin-top: 14px; }
+    .panel { background: #fff; border: 1px solid #f1ede7; border-radius: 14px; padding: 12px; }
+    .panel h3 { margin-bottom: 8px; font-size: 18px; }
+    .panel ul { margin: 0; padding-left: 18px; }
+    .panel li { margin: 5px 0; line-height: 1.55; }
+
+    .bars { display: grid; gap: 8px; }
+    .bar-row { display: grid; grid-template-columns: 70px 1fr 56px; gap: 8px; align-items: center; }
+    .mini { height: 9px; border-radius: 999px; background: #efece7; overflow: hidden; }
+    .mini > i { display: block; height: 100%; background: linear-gradient(90deg, var(--a1), var(--a2)); }
+
+    .share { margin-top: 10px; }
+    .share-line { display: flex; gap: 8px; flex-wrap: wrap; }
+    .share-line input, .share-line select {
+      flex: 1 1 300px;
+      min-width: 220px;
+      padding: 10px 11px;
+      border: 1px solid #e8e2da;
+      border-radius: 10px;
+      background: #fff;
+      font-size: 14px;
+    }
+    .tip { margin: 8px 0 0; color: var(--sub); }
+
+    .ft { text-align: center; color: #7f7468; font-size: 13px; margin: 10px 0 18px; }
+    @media (max-width: 860px) {
+      .card { padding: 16px; border-radius: 20px; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg" aria-hidden="true">
+    <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span>
+  </div>
+
+  <main class="wrap">
+    <section id="home" class="screen active">
+      <div class="card">
+        <p class="kicker">Cute MBTI Test</p>
+        <h1>糖果星球人格测试</h1>
+        <p class="sub">30 道选择题，约 3~6 分钟完成。测评结束后会得到人格类型、性格介绍、优势盲点、适合环境与成长建议。</p>
+        <label for="nick">你的昵称</label>
+        <input id="nick" class="in" maxlength="20" placeholder="例如：小橘子" />
+        <p class="sub" style="margin-top:10px">小功能：支持结果分享链接 + 人格匹配度（趣味版）。</p>
+        <button id="start" class="btn p">开始测试</button>
+      </div>
+    </section>
+
+    <section id="quiz" class="screen">
+      <div class="card">
+        <div class="quiz-top">
+          <p id="progText" class="prog">第 1 / 30 题</p>
+          <div class="track"><div id="fill" class="fill"></div></div>
+        </div>
+        <h2 id="q" class="q"></h2>
+        <div id="ops" class="ops"></div>
+        <div class="row">
+          <button id="prev" class="btn l">上一题</button>
+          <button id="next" class="btn p">下一题</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="res" class="screen">
+      <div class="card">
+        <p class="kicker" style="text-align:center">Your Result</p>
+        <div id="type" class="type">ENFP</div>
+        <p id="name" class="name"></p>
+        <p id="sum" class="sum"></p>
+
+        <div class="grid">
+          <section class="panel"><h3>维度偏好</h3><div id="bars" class="bars"></div></section>
+          <section class="panel"><h3>你的优势</h3><ul id="pros"></ul></section>
+          <section class="panel"><h3>可能盲点</h3><ul id="cons"></ul></section>
+          <section class="panel"><h3>适合环境</h3><ul id="fit"></ul></section>
+        </div>
+
+        <section class="panel share">
+          <h3>分享你的结果</h3>
+          <div class="share-line">
+            <input id="share" readonly />
+            <button id="copy" class="btn l">复制链接</button>
+          </div>
+          <p id="copyTip" class="tip"></p>
+        </section>
+
+        <section class="panel share">
+          <h3>人格匹配度（有趣版）</h3>
+          <div class="share-line">
+            <select id="friend"></select>
+            <button id="matchBtn" class="btn l">计算匹配度</button>
+          </div>
+          <p id="matchOut" class="tip"></p>
+        </section>
+
+        <div style="text-align:center;margin-top:12px"><button id="again" class="btn p">重新测试</button></div>
+      </div>
+    </section>
+  </main>
+
+  <p class="ft">仅供娱乐与自我探索，不作为专业心理诊断依据。</p>
+
+  <script>
+    const QUESTIONS = [
+      ["EI", "刚加入一个新群聊时，你通常会？", "先发个可爱表情，主动打招呼", "先观察聊天氛围，再决定发言"],
+      ["EI", "理想周末更像哪一种？", "和朋友探店、逛展、拍照", "在家看书追剧，安静充电"],
+      ["SN", "去陌生城市旅行时，你更关注？", "路线交通预算这些现实信息", "城市故事与新奇灵感"],
+      ["TF", "朋友遇到难题来找你，你会先？", "理清逻辑，给可执行方案", "先安抚情绪，让TA被理解"],
+      ["EI", "团队讨论里，你更可能？", "想到就说，边聊边完善", "想清楚后再完整表达"],
+      ["SN", "学习新技能时，你更依赖？", "步骤、案例和操作演示", "原理、框架和底层逻辑"],
+      ["TF", "你更认可哪句原则？", "先公平，再温柔", "先共情，再讨论对错"],
+      ["JP", "旅行前你通常会？", "提前排好行程和备选", "只定方向，现场随心"],
+      ["EI", "参加聚会时你常见状态？", "主动串场，认识新朋友", "和熟人待在舒适小圈子"],
+      ["SN", "接到任务后你先看？", "眼前可落地的目标", "长期潜在的可能性"],
+      ["TF", "出现分歧时你更看重？", "结论是否客观可验证", "过程是否照顾感受"],
+      ["JP", "面对截止日期你通常？", "提前推进并预留缓冲", "后半程爆发冲刺"],
+      ["EI", "一天很累后你更想？", "找人聊聊恢复能量", "独处一会儿安静回血"],
+      ["SN", "做决策时你更依赖？", "经验与现实条件", "直觉和趋势判断"],
+      ["TF", "你给反馈时更倾向？", "直接指出问题与改法", "委婉表达并先肯定"],
+      ["JP", "你的桌面与文件常常是？", "分类清晰命名统一", "看似随意但我找得到"],
+      ["EI", "有新点子时你更愿意？", "边说边碰撞让点子发酵", "先在脑中打磨成熟"],
+      ["SN", "看电影时你更容易记住？", "桥段、台词和细节", "隐喻、主题和价值"],
+      ["TF", "你理想中的合作伙伴？", "逻辑清楚，执行稳定", "懂沟通，氛围友好"],
+      ["JP", "计划突然变化时你通常？", "先不适，再重建秩序", "觉得刺激，乐于调整"],
+      ["EI", "大型活动结束后你会？", "意犹未尽还想续摊", "回家安静休息"],
+      ["SN", "你更偏爱哪类任务？", "目标明确流程稳定", "开放探索可创新"],
+      ["TF", "争论中你更容易被什么说服？", "数据证据与推理链", "动机语境与人的处境"],
+      ["JP", "购物清单对你来说是？", "严格执行避免遗漏", "参考即可临场加购"],
+      ["EI", "课堂或会议上你更像？", "积极互动型发言者", "观察思考型记录者"],
+      ["SN", "完成作品时你更满意于？", "细节严谨可落地", "概念新鲜有突破"],
+      ["TF", "你拒绝别人请求时更倾向？", "边界清晰理由明确", "温柔表达尽量不伤人"],
+      ["JP", "你的待办事项通常？", "按优先级逐一勾掉", "想到就做保持弹性"],
+      ["TF", "评估方案时你更先问？", "是否高效并可复用", "是否照顾人的体验"],
+      ["JP", "今天突然放假你会？", "安排计划效率拉满", "随心挑一件事就出发"]
+    ];
+
+    const LETTER_INFO = {
+      E: { side: "外向", plus: ["善于发起互动", "社交能量强", "愿意主动试错"], minus: ["容易分散注意力", "有时说得比想得快"] },
+      I: { side: "内向", plus: ["深度思考能力强", "专注稳定", "观察细致"], minus: ["表达启动偏慢", "可能把压力留给自己"] },
+      S: { side: "实感", plus: ["务实落地", "细节把控好", "执行稳健"], minus: ["对模糊探索耐心有限", "创新尝试启动较慢"] },
+      N: { side: "直觉", plus: ["想象力丰富", "善于看趋势", "创意连接力强"], minus: ["可能忽略当下细节", "落地节奏需管理"] },
+      T: { side: "思考", plus: ["逻辑清晰", "决策果断", "标准明确"], minus: ["表达可能偏硬", "易忽略情绪信号"] },
+      F: { side: "情感", plus: ["共情能力高", "关系协同好", "价值感稳定"], minus: ["容易过度顾及他人", "关键决策时犹豫"] },
+      J: { side: "判断", plus: ["计划感强", "推进效率高", "秩序管理好"], minus: ["变更时不适感更强", "可能完美主义"] },
+      P: { side: "知觉", plus: ["灵活应变", "开放探索", "创意突发力强"], minus: ["收尾稳定性不足", "易被新鲜事分流"] }
+    };
+
+    const TYPE_NAME = {
+      INTJ:"战略建筑师",INTP:"逻辑探索家",ENTJ:"指挥官",ENTP:"点子发明家",
+      INFJ:"洞察引路人",INFP:"理想诗人",ENFJ:"温暖组织者",ENFP:"活力梦想家",
+      ISTJ:"稳健执行者",ISFJ:"温柔守护者",ESTJ:"秩序管理者",ESFJ:"氛围维护官",
+      ISTP:"冷静工匠",ISFP:"审美治愈师",ESTP:"行动破局者",ESFP:"快乐点亮者"
+    };
+
+    const screens = {
+      home: document.getElementById("home"),
+      quiz: document.getElementById("quiz"),
+      res: document.getElementById("res")
+    };
+
+    const ui = {
+      nick: document.getElementById("nick"),
+      start: document.getElementById("start"),
+      progText: document.getElementById("progText"),
+      fill: document.getElementById("fill"),
+      q: document.getElementById("q"),
+      ops: document.getElementById("ops"),
+      prev: document.getElementById("prev"),
+      next: document.getElementById("next"),
+      type: document.getElementById("type"),
+      name: document.getElementById("name"),
+      sum: document.getElementById("sum"),
+      bars: document.getElementById("bars"),
+      pros: document.getElementById("pros"),
+      cons: document.getElementById("cons"),
+      fit: document.getElementById("fit"),
+      share: document.getElementById("share"),
+      copy: document.getElementById("copy"),
+      copyTip: document.getElementById("copyTip"),
+      friend: document.getElementById("friend"),
+      matchBtn: document.getElementById("matchBtn"),
+      matchOut: document.getElementById("matchOut"),
+      again: document.getElementById("again")
+    };
+
+    const state = { idx: 0, ans: Array(QUESTIONS.length).fill(null), name: "", type: "", counts: null };
+
+    function show(k) {
+      Object.values(screens).forEach(x => x.classList.remove("active"));
+      screens[k].classList.add("active");
+    }
+
+    function renderQ() {
+      const q = QUESTIONS[state.idx];
+      const p = state.idx + 1;
+      ui.progText.textContent = `第 ${p} / ${QUESTIONS.length} 题`;
+      ui.fill.style.width = `${(p / QUESTIONS.length) * 100}%`;
+      ui.q.textContent = q[1];
+      ui.ops.innerHTML = "";
+
+      const makeBtn = (txt, trait, tag) => {
+        const b = document.createElement("button");
+        b.className = "op" + (state.ans[state.idx] === trait ? " sel" : "");
+        b.innerHTML = `<strong>${tag}.</strong> ${txt}`;
+        b.onclick = () => { state.ans[state.idx] = trait; renderQ(); };
+        return b;
+      };
+
+      const d = q[0];
+      const a = d[0], b = d[1];
+      ui.ops.appendChild(makeBtn(q[2], a, "A"));
+      ui.ops.appendChild(makeBtn(q[3], b, "B"));
+
+      ui.prev.disabled = state.idx === 0;
+      ui.next.disabled = !state.ans[state.idx];
+      ui.next.textContent = state.idx === QUESTIONS.length - 1 ? "查看结果" : "下一题";
+    }
+
+    function calc() {
+      const c = {E:0,I:0,S:0,N:0,T:0,F:0,J:0,P:0};
+      state.ans.forEach(x => c[x]++);
+      const pick = (x,y) => c[x] >= c[y] ? x : y;
+      const type = `${pick("E","I")}${pick("S","N")}${pick("T","F")}${pick("J","P")}`;
+      state.type = type;
+      state.counts = c;
+      return { type, c };
+    }
+
+    function bars(c) {
+      const pairs = [["E","I"],["S","N"],["T","F"],["J","P"]];
+      ui.bars.innerHTML = "";
+      pairs.forEach(([l,r]) => {
+        const t = c[l] + c[r] || 1;
+        const lp = Math.round((c[l] / t) * 100);
+        const dom = lp >= 50 ? l : r;
+        const per = dom === l ? lp : (100 - lp);
+        const row = document.createElement("div");
+        row.className = "bar-row";
+        row.innerHTML = `<span>${l}/${r}</span><div class="mini"><i style="width:${per}%"></i></div><strong>${dom} ${per}%</strong>`;
+        ui.bars.appendChild(row);
+      });
+    }
+
+    function uniq(a) { return Array.from(new Set(a)); }
+
+    function buildDetail(type) {
+      const [a,b,c,d] = type.split("");
+      const info = [LETTER_INFO[a], LETTER_INFO[b], LETTER_INFO[c], LETTER_INFO[d]];
+      const pros = uniq(info.flatMap(x => x.plus)).slice(0, 6);
+      const cons = uniq(info.flatMap(x => x.minus)).slice(0, 5);
+
+      const fitMap = {
+        E:["社群运营","活动策划"], I:["研究分析","深度创作"],
+        S:["运营执行","流程管理"], N:["产品创新","内容策划"],
+        T:["策略决策","数据分析"], F:["用户体验","教育咨询"],
+        J:["项目统筹","组织管理"], P:["创意探索","灵活协作"]
+      };
+      const fit = uniq([...fitMap[a],...fitMap[b],...fitMap[c],...fitMap[d]]).slice(0, 6);
+
+      const sum = `你偏向 ${LETTER_INFO[a].side} + ${LETTER_INFO[b].side} + ${LETTER_INFO[c].side} + ${LETTER_INFO[d].side}。你通常既有自己的节奏，也有独特的判断方式；当你把优势转成稳定流程时，会非常有竞争力。`;
+      return { pros, cons, fit, sum };
+    }
+
+    function makeShareLink(type, name) {
+      const u = new URL(location.href);
+      u.search = "";
+      u.hash = "";
+      u.searchParams.set("type", type);
+      if (name) u.searchParams.set("name", name);
+      return u.toString();
+    }
+
+    function renderResult(type, c, fromShare = false) {
+      const n = TYPE_NAME[type] || "独特冒险家";
+      const d = buildDetail(type);
+      ui.type.textContent = type;
+      ui.name.textContent = `${n} · ${(state.name || "你")}`;
+      ui.sum.textContent = d.sum;
+      bars(c || {E:1,I:1,S:1,N:1,T:1,F:1,J:1,P:1});
+
+      ui.pros.innerHTML = d.pros.map(x => `<li>${x}</li>`).join("");
+      ui.cons.innerHTML = d.cons.map(x => `<li>${x}</li>`).join("");
+      ui.fit.innerHTML = d.fit.map(x => `<li>${x}</li>`).join("");
+
+      ui.share.value = makeShareLink(type, state.name);
+      ui.copyTip.textContent = fromShare ? "你正在查看分享结果卡片。" : "复制这个链接发给朋友即可查看。";
+      ui.matchOut.textContent = "";
+      show("res");
+    }
+
+    function scoreMatch(a, b) {
+      let same = 0;
+      for (let i = 0; i < 4; i++) if (a[i] === b[i]) same++;
+      let s = 45 + same * 12;
+      if (a[0] !== b[0]) s += 4;
+      if (a[1] !== b[1]) s += 3;
+      s = Math.max(35, Math.min(95, s));
+      const label = s >= 82 ? "高默契拍档" : s >= 68 ? "互补搭子" : s >= 52 ? "可成长组合" : "潜力组合";
+      const tip = same >= 3 ? "你们天然同频，适合共创项目。" : "差异有火花，约定沟通规则会更顺畅。";
+      return { s, label, tip };
+    }
+
+    function initFriend() {
+      ui.friend.innerHTML = Object.keys(TYPE_NAME).map(t => `<option value="${t}">${t} · ${TYPE_NAME[t]}</option>`).join("");
+    }
+
+    ui.start.onclick = () => {
+      state.name = (ui.nick.value || "小可爱").trim() || "小可爱";
+      state.idx = 0;
+      state.ans = Array(QUESTIONS.length).fill(null);
+      show("quiz");
+      renderQ();
+    };
+
+    ui.prev.onclick = () => { if (state.idx > 0) { state.idx--; renderQ(); } };
+    ui.next.onclick = () => {
+      if (!state.ans[state.idx]) return;
+      if (state.idx === QUESTIONS.length - 1) {
+        const { type, c } = calc();
+        renderResult(type, c);
+        return;
+      }
+      state.idx++;
+      renderQ();
+    };
+
+    ui.copy.onclick = async () => {
+      try {
+        await navigator.clipboard.writeText(ui.share.value);
+        ui.copyTip.textContent = "链接已复制，快发给朋友吧。";
+      } catch {
+        ui.share.select();
+        ui.copyTip.textContent = "自动复制失败，请手动复制输入框链接。";
+      }
+    };
+
+    ui.matchBtn.onclick = () => {
+      if (!state.type) return;
+      const f = ui.friend.value;
+      const m = scoreMatch(state.type, f);
+      ui.matchOut.textContent = `${state.type} × ${f}：${m.s} 分（${m.label}）。${m.tip}`;
+    };
+
+    ui.again.onclick = () => show("home");
+
+    function loadShare() {
+      const p = new URLSearchParams(location.search);
+      const t = (p.get("type") || "").toUpperCase();
+      const n = p.get("name") || "";
+      if (!TYPE_NAME[t]) return false;
+      state.name = n || "TA";
+      state.type = t;
+      const fake = {E:1,I:1,S:1,N:1,T:1,F:1,J:1,P:1};
+      t.split("").forEach(ch => fake[ch] += 2);
+      renderResult(t, fake, true);
+      return true;
+    }
+
+    initFriend();
+    if (!loadShare()) show("home");
+  </script>
+</body>
+</html>
