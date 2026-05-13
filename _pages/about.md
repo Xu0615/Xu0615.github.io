@@ -53,7 +53,7 @@ If you would like to get in touch or share a passion for LLM interpretability an
 
 
 - **Xu Wang**. *[Qwen-Scope: Turning Sparse Features into Development Tools for Large Language Models](https://arxiv.org/abs/2605.11887)*  
- **Technical report; Core Contributor**
+ **Qwen Team Technical report; Core Contributor**
 ---
 
 <span class="anchor" id="experience"></span>
