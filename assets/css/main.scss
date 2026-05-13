@@ -125,7 +125,6 @@ h1:before, .anchor:before {
    File path: /images/home-bg.gif
    ========================================================= */
 
-/* Keep the page tall enough for a fixed full-screen background */
 html,
 body {
   min-height: 100%;
@@ -134,45 +133,62 @@ body {
 body {
   position: relative;
   background-color: #f8fafc;
-  isolation: isolate;
 }
 
-/* 
-   Background GIF layer.
-   background-size: cover keeps the original aspect ratio,
-   so the GIF will not be stretched too flat or too tall.
+/*
+   Dedicated background layer.
+   This is more reliable than body::before for this theme because
+   the theme uses several positioned wrappers and z-index layers.
 */
-body::before {
-  content: "";
+.site-background {
   position: fixed;
   inset: 0;
-  background-image: url("/images/home-bg.gif");
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.site-background::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("/images/home-bg.gif?v=202605");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-  opacity: 0.13;
+  opacity: 0.18;
   filter: saturate(0.85) contrast(0.92) blur(0.4px);
-  z-index: -2;
-  pointer-events: none;
+  transform: scale(1.02);
 }
 
-/* White veil layer to protect text readability */
-body::after {
+.site-background::after {
   content: "";
-  position: fixed;
+  position: absolute;
   inset: 0;
-  background: rgba(255, 255, 255, 0.78);
-  z-index: -1;
-  pointer-events: none;
+  background: rgba(255, 255, 255, 0.72);
 }
 
-/* Keep main content and header above the background */
+/* Keep all real page content above the background layer */
 .masthead,
 #main,
 .page,
-.sidebar {
+.sidebar,
+.greedy-nav,
+.page__inner-wrap {
   position: relative;
-  z-index: 1;
+  z-index: 2;
+}
+
+/* Make theme default solid backgrounds transparent enough to reveal the GIF */
+.masthead,
+.greedy-nav {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+#main {
+  background: transparent;
 }
 
 /* Soft readable card for the main content */
@@ -206,13 +222,13 @@ body::after {
 
 /* Mobile: make the background lighter and content tighter */
 @media (max-width: 768px) {
-  body::before {
-    opacity: 0.08;
+  .site-background::before {
+    opacity: 0.10;
     filter: saturate(0.8) contrast(0.9) blur(0.6px);
   }
 
-  body::after {
-    background: rgba(255, 255, 255, 0.84);
+  .site-background::after {
+    background: rgba(255, 255, 255, 0.82);
   }
 
   .page__inner-wrap {
@@ -223,7 +239,7 @@ body::after {
 
 /* Respect users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  body::before {
+  .site-background::before {
     background-image: none;
   }
 }
