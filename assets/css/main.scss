@@ -115,7 +115,115 @@ h1:before, .anchor:before {
   padding-right: 8px;
   border: 1px solid #e5e7eb;
   border-radius: 10px;
-  margin: 0;              // ✅ 建议加
-  list-style-position: inside; // ✅ 建议加（可选）
+  margin: 0;
+  list-style-position: inside;
 }
 
+
+/* =========================================================
+   Full-page subtle animated background
+   File path: /images/home-bg.gif
+   ========================================================= */
+
+/* Keep the page tall enough for a fixed full-screen background */
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  position: relative;
+  background-color: #f8fafc;
+  isolation: isolate;
+}
+
+/* 
+   Background GIF layer.
+   background-size: cover keeps the original aspect ratio,
+   so the GIF will not be stretched too flat or too tall.
+*/
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("/images/home-bg.gif");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  opacity: 0.13;
+  filter: saturate(0.85) contrast(0.92) blur(0.4px);
+  z-index: -2;
+  pointer-events: none;
+}
+
+/* White veil layer to protect text readability */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.78);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Keep main content and header above the background */
+.masthead,
+#main,
+.page,
+.sidebar {
+  position: relative;
+  z-index: 1;
+}
+
+/* Soft readable card for the main content */
+.page__inner-wrap {
+  background: rgba(255, 255, 255, 0.88);
+  border-radius: 18px;
+  padding: 1.25rem 1.5rem;
+  box-shadow: 0 12px 36px rgba(15, 23, 42, 0.08);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+/* Make the news box match the soft card style */
+.news-scroll {
+  background: rgba(255, 255, 255, 0.62);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* Slightly protect the left author sidebar on larger screens */
+@include breakpoint($large) {
+  .sidebar {
+    background: rgba(255, 255, 255, 0.62);
+    border-radius: 18px;
+    padding: 1rem;
+    box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+  }
+}
+
+/* Mobile: make the background lighter and content tighter */
+@media (max-width: 768px) {
+  body::before {
+    opacity: 0.08;
+    filter: saturate(0.8) contrast(0.9) blur(0.6px);
+  }
+
+  body::after {
+    background: rgba(255, 255, 255, 0.84);
+  }
+
+  .page__inner-wrap {
+    padding: 0.9rem 1rem;
+    border-radius: 14px;
+  }
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  body::before {
+    background-image: none;
+  }
+}
