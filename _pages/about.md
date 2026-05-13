@@ -15,12 +15,12 @@ If you would like to get in touch or share a passion for LLM interpretability an
 ## 🗞️ News
 
 {:.news-scroll}
-- 📝 *[2026.05]* Technical report [**Qwen-Scope: Turning Sparse Features into Development Tools for Large Language Models**](https://arxiv.org/abs/2605.11887) released on **arXiv**
-- 📝 *[2026.02]* Paper [**DLM-Scope: Mechanistic Interpretability of Diffusion Language Models via Sparse Autoencoders**](https://arxiv.org/abs/2602.05859) released on **arXiv**
-- 📝 *[2026.01]* Paper [**Does Higher Interpretability Imply Better Utility? A Pairwise Analysis on Sparse Autoencoders**](https://arxiv.org/abs/2510.03659) accepted to **ICLR 2026**
+- ⭐ *[2026.05]* Our Technical report [**Qwen-Scope: Turning Sparse Features into Development Tools for Large Language Models**](https://arxiv.org/abs/2605.11887) released on **arXiv**! All weights have been deployed in ModelScope and HuggingFace!
+- 📝 *[2026.02]* Paper [**DLM-Scope: Mechanistic Interpretability of Diffusion Language Models via Sparse Autoencoders**](https://arxiv.org/abs/2602.05859) accepted to  **ICML 2026** and **ICLR 2026 Workshop on Trustworthy AI** as an **oral** presentation!
+- 📝 *[2026.01]* Paper [**Does Higher Interpretability Imply Better Utility? A Pairwise Analysis on Sparse Autoencoders**](https://arxiv.org/abs/2510.03659) accepted to **ICLR 2026**!
 - 📝 *[2025.10]* Paper [**Does Higher Interpretability Imply Better Utility? A Pairwise Analysis on Sparse Autoencoders**](https://arxiv.org/abs/2510.03659) accepted to **NeurIPS 2025 Workshop on ResponsibleFM** as an oral presentation and won the **Outstanding Paper Award**!
-- 📝 *[2025.08]* Two papers [**Feature Extraction and Steering for Enhanced Chain-of-Thought Reasoning in Language Models**](https://arxiv.org/abs/2505.15634) and [**Model Unlearning via Sparse Autoencoder Subspace Guided Projections**](https://arxiv.org/abs/2505.24428) have been accepted at **EMNLP 2025**
-- 📝 *[2025.05]* Paper [**Towards Understanding Fine-Tuning Mechanisms of LLMs via Circuit Analysis**](https://arxiv.org/abs/2502.11812) accepted at **ICML 2025**
+- 📝 *[2025.08]* Two papers [**Feature Extraction and Steering for Enhanced Chain-of-Thought Reasoning in Language Models**](https://arxiv.org/abs/2505.15634) and [**Model Unlearning via Sparse Autoencoder Subspace Guided Projections**](https://arxiv.org/abs/2505.24428) have been accepted at **EMNLP 2025**!
+- 📝 *[2025.05]* Paper [**Towards Understanding Fine-Tuning Mechanisms of LLMs via Circuit Analysis**](https://arxiv.org/abs/2502.11812) accepted at **ICML 2025**!
 
 
 ---
@@ -30,6 +30,9 @@ If you would like to get in touch or share a passion for LLM interpretability an
 ## 📄 Publications
 
 ### Part 1: Conference Publications
+
+- **Xu Wang**, Bingqing Jiang, Yu Wan, Baosong Yang, Lingpeng Kong, Difan Zou. *[DLM-Scope: Mechanistic Interpretability of Diffusion Language Models via Sparse Autoencoders](https://arxiv.org/abs/2602.05859)*  
+  _ICML 2026 (accepted)_
 
 - **Xu Wang**, Yan Hu, Benyou Wang, Difan Zou. *[Does higher interpretability imply better utility? A Pairwise Analysis on Sparse Autoencoders](https://arxiv.org/abs/2510.03659)*  
   _ICLR 2026 (accepted)_
@@ -43,12 +46,11 @@ If you would like to get in touch or share a passion for LLM interpretability an
 - **Xu Wang**, et al. *[Towards Understanding Fine-Tuning Mechanisms of LLMs via Circuit Analysis](https://arxiv.org/abs/2502.11812)*  
   _ICML 2025 (accepted)_
 
+
 ---
 
 ### Part 2: Preprints on arXiv
 
-- **Xu Wang**, Bingqing Jiang, Yu Wan, Baosong Yang, Lingpeng Kong, Difan Zou. *[DLM-Scope: Mechanistic Interpretability of Diffusion Language Models via Sparse Autoencoders](https://arxiv.org/abs/2602.05859)*  
-  _arXiv preprint_
 
 - **Xu Wang**. *[Qwen-Scope: Turning Sparse Features into Development Tools for Large Language Models](https://arxiv.org/abs/2605.11887)*  
   _Technical report; Core Contributor_
@@ -72,6 +74,7 @@ If you would like to get in touch or share a passion for LLM interpretability an
 ## 🧩 Services (Conference Reviewers)
 
 - Reviewer for **ICML**
+- Reviewer for **NIPS**
 - Reviewer for **ICLR**
 - Reviewer for **EMNLP**
 
