@@ -1,15 +1,19 @@
-# main links links
+# main links
 main:
   - title: "About Me"
-    url: "#about-me"
-  - title: "News"
-    url: "#news"
-  - title: "Publications"
-    url: "#publications"
-  - title: "Experience"
-    url: "#experience"
-  - title: Services
-    url: /#services
-  - title: "Future Plan"
-    url: "#future-plan"
+    url: "/#about-me"
 
+  - title: "News"
+    url: "/#news"
+
+  - title: "Publications"
+    url: "/#publications"
+
+  - title: "Experience"
+    url: "/#experience"
+
+  - title: "Services"
+    url: "/#services"
+
+  - title: "Future Plan"
+    url: "/#future-plan"
