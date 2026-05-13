@@ -10,16 +10,16 @@ My research focuses on **AI Interpretability, Trustworthy and Safety**, aiming t
 If you would like to get in touch or share a passion for LLM interpretability and safety, or if you are looking for potential collaboration in this direction, feel free to reach out via email: **sunny615@connect.hku.hk**!
 
 
----
-
-<span class="anchor" id="news"></span>
+---<span class="anchor" id="news"></span>
 
 ## 🗞️ News
 
 {:.news-scroll}
+- 📝 *[2026.05]* Technical report [**Qwen-Scope: Turning Sparse Features into Development Tools for Large Language Models**](https://arxiv.org/abs/2605.11887) released on **arXiv**
+- 📝 *[2026.02]* Paper [**DLM-Scope: Mechanistic Interpretability of Diffusion Language Models via Sparse Autoencoders**](https://arxiv.org/abs/2602.05859) released on **arXiv**
 - 📝 *[2026.01]* Paper [**Does Higher Interpretability Imply Better Utility? A Pairwise Analysis on Sparse Autoencoders**](https://arxiv.org/abs/2510.03659) accepted to **ICLR 2026**
 - 📝 *[2025.10]* Paper [**Does Higher Interpretability Imply Better Utility? A Pairwise Analysis on Sparse Autoencoders**](https://arxiv.org/abs/2510.03659) accepted to **NeurIPS 2025 Workshop on ResponsibleFM** as an oral presentation and won the **Outstanding Paper Award**!
-- 📝 *[2025.08]* Two Paper [**Feature Extraction and Steering for Enhanced Chain-of-Thought Reasoning in Language Models**](https://arxiv.org/abs/2505.15634) and [**Model Unlearning via Sparse Autoencoder Subspace Guided Projections**](https://arxiv.org/abs/2505.24428) have been accepted at **EMNLP 2025**
+- 📝 *[2025.08]* Two papers [**Feature Extraction and Steering for Enhanced Chain-of-Thought Reasoning in Language Models**](https://arxiv.org/abs/2505.15634) and [**Model Unlearning via Sparse Autoencoder Subspace Guided Projections**](https://arxiv.org/abs/2505.24428) have been accepted at **EMNLP 2025**
 - 📝 *[2025.05]* Paper [**Towards Understanding Fine-Tuning Mechanisms of LLMs via Circuit Analysis**](https://arxiv.org/abs/2502.11812) accepted at **ICML 2025**
 
 
@@ -47,12 +47,11 @@ If you would like to get in touch or share a passion for LLM interpretability an
 
 ### Part 2: Preprints on arXiv
 
-In production~ Please wait patiently ❤
-
 - **Xu Wang**, Bingqing Jiang, Yu Wan, Baosong Yang, Lingpeng Kong, Difan Zou. *[DLM-Scope: Mechanistic Interpretability of Diffusion Language Models via Sparse Autoencoders](https://arxiv.org/abs/2602.05859)*  
-  _arXiv preprint (arXiv:2602.05859), submitted Feb 5, 2026; 23 pages._
+  _arXiv preprint_
 
-
+- **Xu Wang**. *[Qwen-Scope: Turning Sparse Features into Development Tools for Large Language Models](https://arxiv.org/abs/2605.11887)*  
+  _Technical report; Core Contributor_
 ---
 
 <span class="anchor" id="experience"></span>
