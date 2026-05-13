@@ -159,16 +159,18 @@ body {
   object-fit: cover !important;
   object-position: center center !important;
   transform: translate(-50%, -50%) scale(1.04) !important;
-  opacity: 0.5;
-  filter: saturate(1.05) contrast(1.02) blur(0.2px);
+
+  /* Stronger, clearer background color */
+  opacity: 0.78;
+  filter: saturate(1.28) contrast(1.10);
 }
 
-/* Light veil: keeps text readable but lets the GIF show clearly */
+/* Very light veil: avoid the heavy white-fog feeling */
 .site-background::after {
   content: "";
   position: fixed;
   inset: 0;
-  background: rgba(255, 255, 255, 0.46);
+  background: rgba(255, 255, 255, 0.20);
 }
 
 /* Keep real content above background */
@@ -182,62 +184,67 @@ body {
   z-index: 2;
 }
 
-/* Header: slightly transparent */
+/* Header: readable but still lets the background show */
 .masthead,
 .greedy-nav {
-  background: rgba(255, 255, 255, 0.72) !important;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, 0.78) !important;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
 #main {
   background: transparent !important;
 }
 
-/* Main text area: readable but not blocking the background completely */
+/* Main text area: protect readability */
 .page__inner-wrap {
-  background: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.84);
   border-radius: 18px;
   padding: 1.25rem 1.5rem;
   box-shadow: 0 12px 36px rgba(15, 23, 42, 0.08);
-  backdrop-filter: blur(7px);
-  -webkit-backdrop-filter: blur(7px);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
 }
 
 /* News box */
 .news-scroll {
-  background: rgba(255, 255, 255, 0.58);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
 }
 
 /* Sidebar */
 @include breakpoint($large) {
   .sidebar {
-    background: rgba(255, 255, 255, 0.58);
+    background: rgba(255, 255, 255, 0.72);
     border-radius: 18px;
     padding: 1rem;
     box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
   }
 }
 
 /* Mobile */
 @media (max-width: 768px) {
   .site-background img {
-    opacity: 0.24;
+    opacity: 0.46;
     transform: translate(-50%, -50%) scale(1.08) !important;
+    filter: saturate(1.15) contrast(1.05);
   }
 
   .site-background::after {
-    background: rgba(255, 255, 255, 0.72);
+    background: rgba(255, 255, 255, 0.50);
   }
 
   .page__inner-wrap {
-    background: rgba(255, 255, 255, 0.82);
+    background: rgba(255, 255, 255, 0.88);
     padding: 0.9rem 1rem;
     border-radius: 14px;
+  }
+
+  .news-scroll {
+    background: rgba(255, 255, 255, 0.78);
   }
 }
 
