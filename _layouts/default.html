@@ -12,7 +12,9 @@ layout: compress
 
   <body>
     <div class="site-background" aria-hidden="true">
-      <img src="{{ '/images/home-bg.gif' | relative_url }}?v=20260518" alt="">
+      <video autoplay muted loop playsinline preload="auto">
+        <source src="{{ '/images/homepage.mp4' | relative_url }}?v=20260524" type="video/mp4">
+      </video>
     </div>
 
     {% include browser-upgrade.html %}
