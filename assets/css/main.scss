@@ -119,9 +119,8 @@ h1:before, .anchor:before {
   list-style-position: inside;
 }
 
-
 /* =========================================================
-   Full-page subtle animated background
+   Full-page animated background
    File path: /images/home-bg.gif
    ========================================================= */
 
@@ -135,15 +134,11 @@ body {
   background-color: #f8fafc !important;
 }
 
-/*
-   Dedicated fixed background layer.
-   The GIF is rendered as a real <img>, not only as a CSS pseudo-element.
-   This avoids theme stacking-context issues and makes it easy to keep the
-   original aspect ratio with object-fit: cover.
-*/
+/* Full-screen fixed background layer */
 .site-background {
   position: fixed !important;
-  inset: 0 !important;
+  top: 0 !important;
+  left: 0 !important;
   width: 100vw !important;
   height: 100vh !important;
   z-index: 0 !important;
@@ -152,26 +147,31 @@ body {
   background: #f8fafc;
 }
 
+/* Make GIF fully cover the viewport without stretching */
 .site-background img {
-  position: absolute !important;
-  inset: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  min-width: 100vw !important;
+  min-height: 100vh !important;
   object-fit: cover !important;
   object-position: center center !important;
-  opacity: 0.22;
-  filter: saturate(0.9) contrast(0.95) blur(0.4px);
-  transform: scale(1.02);
+  transform: translate(-50%, -50%) scale(1.04) !important;
+  opacity: 0.5;
+  filter: saturate(1.05) contrast(1.02) blur(0.2px);
 }
 
+/* Light veil: keeps text readable but lets the GIF show clearly */
 .site-background::after {
   content: "";
-  position: absolute;
+  position: fixed;
   inset: 0;
-  background: rgba(255, 255, 255, 0.68);
+  background: rgba(255, 255, 255, 0.46);
 }
 
-/* Keep all real page content above the background layer */
+/* Keep real content above background */
 .masthead,
 #main,
 .page,
@@ -182,10 +182,10 @@ body {
   z-index: 2;
 }
 
-/* Make theme default solid backgrounds transparent enough to reveal the GIF */
+/* Header: slightly transparent */
 .masthead,
 .greedy-nav {
-  background: rgba(255, 255, 255, 0.84) !important;
+  background: rgba(255, 255, 255, 0.72) !important;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
@@ -194,53 +194,54 @@ body {
   background: transparent !important;
 }
 
-/* Soft readable card for the main content */
+/* Main text area: readable but not blocking the background completely */
 .page__inner-wrap {
-  background: rgba(255, 255, 255, 0.88);
+  background: rgba(255, 255, 255, 0.72);
   border-radius: 18px;
   padding: 1.25rem 1.5rem;
   box-shadow: 0 12px 36px rgba(15, 23, 42, 0.08);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
 }
 
-/* Make the news box match the soft card style */
+/* News box */
 .news-scroll {
-  background: rgba(255, 255, 255, 0.64);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  background: rgba(255, 255, 255, 0.58);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 }
 
-/* Slightly protect the left author sidebar on larger screens */
+/* Sidebar */
 @include breakpoint($large) {
   .sidebar {
-    background: rgba(255, 255, 255, 0.64);
+    background: rgba(255, 255, 255, 0.58);
     border-radius: 18px;
     padding: 1rem;
     box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
   }
 }
 
-/* Mobile: make the background lighter and content tighter */
+/* Mobile */
 @media (max-width: 768px) {
   .site-background img {
-    opacity: 0.13;
-    filter: saturate(0.85) contrast(0.9) blur(0.6px);
+    opacity: 0.24;
+    transform: translate(-50%, -50%) scale(1.08) !important;
   }
 
   .site-background::after {
-    background: rgba(255, 255, 255, 0.82);
+    background: rgba(255, 255, 255, 0.72);
   }
 
   .page__inner-wrap {
+    background: rgba(255, 255, 255, 0.82);
     padding: 0.9rem 1rem;
     border-radius: 14px;
   }
 }
 
-/* Respect users who prefer reduced motion */
+/* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .site-background img {
     display: none;
