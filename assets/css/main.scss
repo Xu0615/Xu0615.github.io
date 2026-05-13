@@ -159,66 +159,102 @@ body {
   object-position: center center !important;
   transform: translate(-50%, -50%) scale(1.03) !important;
   opacity: 1;
-  filter: saturate(1.12) contrast(1.06);
+  filter: saturate(1.16) contrast(1.08);
 }
 
-/* Light veil: keep readability without making the video look foggy */
+/* Very light veil: keeps readability without making the video look foggy */
 .site-background::after {
   content: "";
   position: fixed;
   inset: 0;
-  background: rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.08);
 }
 
-/* Keep real content above the background */
+/* Keep real page content above the background */
 .masthead,
+.masthead__inner-wrap,
+.masthead__menu,
+.greedy-nav,
+#site-nav,
 #main,
 .page,
 .sidebar,
-.greedy-nav,
 .page__inner-wrap {
   position: relative;
   z-index: 2;
+}
+
+/* Make the top navigation transparent */
+.masthead,
+.masthead__inner-wrap,
+.masthead__menu,
+.greedy-nav,
+#site-nav {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* Keep nav text readable on video */
+.greedy-nav a,
+.masthead__menu-item a {
+  color: #334155 !important;
+  font-weight: 700;
+  text-shadow:
+    0 1px 2px rgba(255, 255, 255, 0.75),
+    0 0 10px rgba(255, 255, 255, 0.55);
+}
+
+/* Optional subtle hover effect */
+.greedy-nav a:hover,
+.masthead__menu-item a:hover {
+  color: #0f172a !important;
+  text-decoration: none;
+}
+
+/* Keep dropdown/button transparent too */
+.greedy-nav button {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
 }
 
 #main {
   background: transparent !important;
 }
 
-/* Header glass effect */
-.masthead,
-.greedy-nav {
-  background: rgba(255, 255, 255, 0.76) !important;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-}
-
-/* Main readable glass card */
+/* Main readable glass card: more transparent */
 .page__inner-wrap {
-  background: rgba(255, 255, 255, 0.84);
+  background: rgba(255, 255, 255, 0.56);
   border-radius: 20px;
   padding: 1.35rem 1.6rem;
   box-shadow: 0 18px 48px rgba(15, 23, 42, 0.10);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+/* Slightly protect text readability inside the glass card */
+.page__content {
+  color: #111827;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.45);
 }
 
 /* News box glass effect */
 .news-scroll {
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  background: rgba(255, 255, 255, 0.48);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
 }
 
 /* Sidebar glass effect */
 @include breakpoint($large) {
   .sidebar {
-    background: rgba(255, 255, 255, 0.72);
+    background: rgba(255, 255, 255, 0.48);
     border-radius: 20px;
     padding: 1rem;
     box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
   }
 }
 
@@ -227,43 +263,72 @@ body {
    File path: /images/Moon.svg
    ========================================================= */
 
-html,
-body {
-  cursor: url("/images/Moon.svg") 16 16, auto;
+/* Hide native cursor on desktop */
+@media (pointer: fine) {
+  html,
+  body,
+  a,
+  button,
+  input,
+  textarea,
+  select,
+  summary,
+  label {
+    cursor: none !important;
+  }
 }
 
-a,
-button,
-input,
-textarea,
-select,
-summary,
-label,
-.greedy-nav a,
-.page__content a {
-  cursor: url("/images/Moon.svg") 16 16, pointer;
+.moon-cursor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 34px;
+  height: 34px;
+  z-index: 999999;
+  pointer-events: none;
+  user-select: none;
+  will-change: transform;
+  filter:
+    drop-shadow(0 0 6px rgba(255, 255, 255, 0.95))
+    drop-shadow(0 0 14px rgba(147, 197, 253, 0.65));
+  transition:
+    width 0.16s ease,
+    height 0.16s ease,
+    filter 0.16s ease;
+}
+
+.moon-cursor.is-clicking {
+  width: 42px;
+  height: 42px;
+  filter:
+    drop-shadow(0 0 10px rgba(255, 255, 255, 1))
+    drop-shadow(0 0 22px rgba(147, 197, 253, 0.85));
 }
 
 /* Mobile: make video lighter and cards more readable */
 @media (max-width: 768px) {
   .site-background video {
-    opacity: 0.62;
+    opacity: 0.70;
     transform: translate(-50%, -50%) scale(1.08) !important;
-    filter: saturate(1.05) contrast(1.02);
+    filter: saturate(1.08) contrast(1.04);
   }
 
   .site-background::after {
-    background: rgba(255, 255, 255, 0.50);
+    background: rgba(255, 255, 255, 0.38);
   }
 
   .page__inner-wrap {
-    background: rgba(255, 255, 255, 0.90);
+    background: rgba(255, 255, 255, 0.82);
     padding: 0.95rem 1rem;
     border-radius: 16px;
   }
 
   .news-scroll {
-    background: rgba(255, 255, 255, 0.80);
+    background: rgba(255, 255, 255, 0.70);
+  }
+
+  .moon-cursor {
+    display: none;
   }
 }
 
