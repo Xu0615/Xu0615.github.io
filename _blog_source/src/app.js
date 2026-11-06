@@ -1,5 +1,6 @@
 import './style.css';
 import './sae-lesson.css';
+import './desk.css';
 import { mountSAELessons } from './sae-lesson.js';
 import { escapeHTML as e, renderMarkdown, plainText } from './markdown.js';
 import { searchPosts, postURL, REPO } from './model.js';
