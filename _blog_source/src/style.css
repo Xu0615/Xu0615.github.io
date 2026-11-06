@@ -16,3 +16,5 @@ body[data-page=editor]{overflow:hidden}body[data-page=editor]:before{opacity:.01
 .art-surface{border-radius:0}
 @media(prefers-reduced-motion:reduce){:root{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 @media print{.site-header,.site-footer,.notebook-sidebar,.article-toc,.comments-section,.related-section,.article-end,.search-toggle{display:none}.article-layout{display:block;padding:0}.prose{font-size:12pt}body{background:white;color:black}.article-title h1{font-size:28pt}body:before{display:none}.prose pre{white-space:pre-wrap}.copy-code{display:none}}
+/* Device connection stays in the same quiet, readable writing interface. */
+.remember-device{display:flex!important;align-items:center;gap:.6rem;margin-top:1rem;cursor:pointer}.remember-device input{width:auto!important;margin:0;accent-color:var(--green)}.connection-note{font-size:.82rem!important;color:var(--muted);line-height:1.7}#connect-error:empty,#publish-warning:empty{display:none}#publish-warning{color:var(--rust);flex-basis:100%;font-size:.78rem}.editor-statusbar{flex-wrap:wrap}#editor-dialog .dialog-actions{flex-wrap:wrap}

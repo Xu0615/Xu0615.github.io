@@ -55,3 +55,16 @@ test('Publish is atomic and never uses a force update',async()=>{
   };
   try{const result=await new GitHubClient('test-only').publish(data,data,'content-sha');assert.equal(result.commit,'new-commit');const updates=calls.filter(c=>c.opts.method==='PATCH');assert.equal(updates.length,1);assert.equal(JSON.parse(updates[0].opts.body).force,false);const treeCall=calls.find(c=>c.url.endsWith('/git/trees'));assert.equal(JSON.parse(treeCall.opts.body).base_tree,'base-tree');}finally{globalThis.fetch=original}
 });
+test('An accepted commit is recognized when the final response is lost',async()=>{
+  const original=globalThis.fetch;let moved=false,patches=0;
+  globalThis.fetch=async(url,options)=>{
+    if(options.method==='PATCH'){moved=true;patches++;throw new TypeError('Connection lost')}
+    if(url.includes('/git/ref/'))return Response.json({object:{sha:moved?'new-commit':'head'}});
+    if(url.includes('/contents/'))return Response.json({sha:'content-sha',content:Buffer.from(JSON.stringify(data)).toString('base64')});
+    if(url.endsWith('/git/commits/head'))return Response.json({tree:{sha:'base-tree'}});
+    if(url.endsWith('/git/trees'))return Response.json({sha:'new-tree',tree:[{path:'blog/content.json',sha:'next-sha'}]});
+    if(url.endsWith('/git/commits'))return Response.json({sha:'new-commit'});
+    throw Error('Unexpected request');
+  };
+  try{assert.deepEqual(await new GitHubClient('test-only').publish(data,data,'content-sha'),{commit:'new-commit',contentSha:'next-sha'});assert.equal(patches,1)}finally{globalThis.fetch=original}
+});

@@ -6,6 +6,7 @@ import { syntaxHighlighting, defaultHighlightStyle } from '@codemirror/language'
 import { renderMarkdown, escapeHTML as e, readingTime } from './markdown.js';
 import { clone, postURL, validID, validateContent, REPO } from './model.js';
 import { GitHubClient } from './publishing.js';
+import { DeviceAuthVault, DeviceConnection } from './device-auth.js';
 
 const STORE='xuwang-desk-v1';
 const today=()=>new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
@@ -64,6 +65,8 @@ async function removeAssets(paths){const db=await assetDB();return new Promise((
 
 export async function startEditor(initialData,enhanceMarkdown){
   let published=clone(initialData),categories=clone(initialData.categories),drafts={},current=null,client=null,contentSha=null,loading=false,publishing=false,assets=[],previewTimer,saveTimer,toastTimer,view;
+  const connection=new DeviceConnection(new DeviceAuthVault(),token=>new GitHubClient(token));
+  let restoreTask=null,latestDeployment=null;
   const $=s=>document.querySelector(s);
   const dialog=$('#editor-dialog'),status=$('#save-status'),preview=$('#markdown-preview');
   const toast=message=>{const el=$('#toast');el.textContent=message;el.hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.hidden=true,6000)};
@@ -179,27 +182,63 @@ export async function startEditor(initialData,enhanceMarkdown){
     if(current&&!drafts[current.id]&&published.posts.some(p=>p.id===current.id))openPost(current.id);
     renderTree();return remote;
   }
-  function connectDialog(){
+  function connectionLabel(){
+    $('#connection-status').textContent=client?`已连接 Xu0615 · ${connection.remembered?'此设备已记住':'仅本次使用'}`:'未连接 · 可在本机写作';
+    $('#connect-github').textContent=client?'GitHub / 设备连接 ↗':'连接 GitHub ↗';
+  }
+  async function handleAuthError(error){
+    if(error.status===401||error.code==='WRONG_ACCOUNT'){
+      client=null;contentSha=null;await connection.disconnect().catch(()=>{});connectionLabel();
+    }
+  }
+  async function restoreConnection(){
+    $('#connection-status').textContent='正在恢复设备连接…';
+    try{
+      const restored=await connection.restore();
+      if(restored){client=restored.client;await syncRemote();}
+      connectionLabel();
+    }catch(error){
+      await handleAuthError(error);connectionLabel();
+      $('#connection-status').textContent=client?'已恢复连接 · 待同步':error.code==='NETWORK'||error.code==='RATE_LIMITED'?'连接已记住 · 稍后重试':'需要重新连接 · 草稿已保留';
+      $('#publish-status').textContent=error.message;
+    }
+  }
+  async function connectDialog(){
+    if(restoreTask)await restoreTask;
     if(client){
-      showDialog('GitHub 已连接',`<p>当前账户：Xu0615。内容保存在 <strong>${REPO}</strong>。</p><p>凭证仅保存在此页面的内存中，不写入草稿或仓库。刷新或关闭页面后，需要重新连接。</p><p>同步会读取远端最新内容，并保留本机草稿。</p>`,`<button class="quiet-button" id="disconnect">断开连接</button><button class="solid-button" id="sync-remote">同步 GitHub</button>`);
-      $('#disconnect').onclick=()=>{client.clear();client=null;contentSha=null;$('#connection-status').textContent='未连接 · 可在本机写作';$('#connect-github').textContent='连接 GitHub ↗';closeDialog()};
-      $('#sync-remote').onclick=async()=>{try{await syncRemote();closeDialog();toast('已同步最新公开内容，本机草稿已保留。')}catch(err){toast(err.message)}};
+      showDialog('GitHub 已连接',`<p>当前账户：Xu0615。内容保存在 <strong>${REPO}</strong>。</p><p>${connection.remembered?'这台设备已记住连接。下次打开写作台会自动恢复，直接点击发布即可。':'当前为“仅本次使用”。若希望下次自动连接，请先断开，再勾选“记住此设备”连接一次。'}</p><p>同步会读取远端最新内容，并保留本机草稿。断开连接会移除此设备保存的凭证。</p><p id="connect-error" class="connection-error" role="alert"></p>`,`<button class="quiet-button" id="disconnect">断开并忘记此设备</button><button class="solid-button" id="sync-remote">同步 GitHub</button>`);
+      $('#disconnect').onclick=async()=>{
+        client=null;contentSha=null;
+        try{await connection.disconnect();closeDialog();toast('此设备已忘记 GitHub 连接。草稿仍然保留。')}
+        catch{$('#connect-error').textContent='连接已断开，但浏览器未能清除保存的凭证。请清除此网站的浏览器数据，或在 GitHub 撤销凭证。'}
+        connectionLabel();
+      };
+      $('#sync-remote').onclick=async()=>{try{await syncRemote();closeDialog();toast('已同步最新公开内容，本机草稿已保留。')}catch(err){await handleAuthError(err);$('#connect-error').textContent=err.message}};
       return;
     }
-    showDialog('连接你的 GitHub',`<p>写作与预览无需登录。发布时，使用只授权这个仓库的 GitHub 凭证。</p><ol><li>在 <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">GitHub 创建 Fine-grained token ↗</a>。</li><li>Repository access 选择 <strong>Only select repositories → Xu0615.github.io</strong>。</li><li>Repository permissions 设置 <strong>Contents: Read and write</strong> 与 <strong>Issues: Read and write</strong>。Issues 用来建立文章评论区。</li></ol><label for="github-token">GitHub token</label><input id="github-token" class="token-field" type="password" autocomplete="off" spellcheck="false" placeholder="github_pat_…"><p>凭证只留在当前页面内存中。请直接在此处输入，不要发送到聊天或写入文章。</p><p id="connect-error" class="connection-error" role="alert"></p>`,`<button class="solid-button" id="confirm-connect">连接账户</button>`);
+    showDialog('连接一次，安心写作',`<p>写作与预览无需登录。连接 GitHub 后，文章会保存到你的博客仓库。</p><ol><li>在 <a href="https://github.com/settings/personal-access-tokens/new?name=xuwang-writing-desk&target_name=Xu0615&contents=write&issues=write" target="_blank" rel="noopener">GitHub 创建 Fine-grained token ↗</a>。</li><li>Repository access 选择 <strong>Only select repositories → Xu0615.github.io</strong>。</li><li>Repository permissions 设置 <strong>Contents: Read and write</strong> 与 <strong>Issues: Read and write</strong>。前者用于发布，后者用于创建评论区。</li></ol><label for="github-token">GitHub token</label><input id="github-token" class="token-field" type="password" autocomplete="off" spellcheck="false" placeholder="粘贴新生成的 token"><label class="remember-device"><input id="remember-device" type="checkbox" checked><span>记住此设备，下次自动连接</span></label><p class="connection-note">仅在自己的可信设备上使用。凭证加密保存在此浏览器中，不会写入文章、导出文件或 GitHub 仓库。清除浏览器数据、凭证到期或被撤销后，需重新连接。请直接在这里输入，不要发送到聊天。</p><p id="connect-error" class="connection-error" role="alert"></p>`,`<button class="quiet-button" id="retry-saved">重试已保存的连接</button><button class="solid-button" id="confirm-connect">连接并验证发布权限</button>`);
+    $('#retry-saved').onclick=async()=>{restoreTask=restoreConnection();await restoreTask;if(client){closeDialog();toast('已恢复此设备的连接。')}else $('#connect-error').textContent=$('#publish-status').textContent||'此设备尚未保存连接，请输入凭证连接一次。'};
     $('#confirm-connect').onclick=async()=>{
-      const button=$('#confirm-connect'),token=$('#github-token').value.trim();
+      const button=$('#confirm-connect'),errorBox=$('#connect-error'),token=$('#github-token').value.trim(),remember=$('#remember-device').checked;
       if(!token){$('#connect-error').textContent='请输入凭证。';return}
       button.disabled=true;button.textContent='正在验证…';
-      const candidate=new GitHubClient(token);$('#github-token').value='';
-      try{await candidate.connect();client=candidate;await syncRemote();$('#connection-status').textContent='已连接 Xu0615 · 凭证仅本次有效';$('#connect-github').textContent='同步 GitHub / 账户 ↗';closeDialog();toast('GitHub 已连接。现在可以发布文章。')}
-      catch(err){candidate.clear();client=null;contentSha=null;$('#connect-error').textContent=err.message;button.disabled=false;button.textContent='重新连接'}
+      $('#github-token').value='';errorBox.textContent='';
+      try{
+        const result=await connection.attach(token,{remember});client=result.client;connectionLabel();await syncRemote();
+        closeDialog();$('#publish-status').textContent='发布权限已验证';
+        toast(result.remembered?'连接已记住。以后在此浏览器打开写作台，可直接发布。':'GitHub 已连接，本次可直接发布。');
+        if(result.storageWarning)showDialog('已连接，但未记住设备',`<p>${e(result.storageWarning)}</p><p>当前页面仍可发布。请检查浏览器存储设置，下次打开时需要重新连接。</p>`);
+      }
+      catch(err){await handleAuthError(err);connectionLabel();errorBox.textContent=err.message;button.disabled=false;button.textContent='重新验证连接'}
     };
   }
   $('#connect-github').onclick=connectDialog;
   async function publish(kind='post',targetData=null){
     if(publishing)return;
+    if(restoreTask)await restoreTask;
+    if(publishing)return;
     if(!client){connectDialog();return}
+    if(!contentSha){try{await syncRemote()}catch(err){await handleAuthError(err);toast(err.message);connectDialog();return}}
     changeDraft();clearTimeout(saveTimer);persist();
     let next=targetData||clone(published);next.categories=clone(categories);next.updated=today();next.revision=crypto.randomUUID();
     if(kind==='post'){
@@ -211,9 +250,14 @@ export async function startEditor(initialData,enhanceMarkdown){
     publishing=true;$('#publish-post').disabled=true;$('.editor-shell').inert=true;
     try{
       const check=await client.readContent();if(check.sha!==contentSha)throw new Error('远端内容已更新。请通过左下角“同步 GitHub”先同步；本机草稿将保留。');
+      $('#publish-warning').textContent='';
       if(kind==='post'){
         const post=next.posts.find(p=>p.id===current.id);
-        if(!post.issue){setProgress('建立文章评论区…');post.issue=await client.createDiscussion(post);current.issue=post.issue;$('#post-issue').value=post.issue;drafts[current.id]=clone(current);persist();}
+        if(!post.issue){
+          setProgress('建立文章评论区…');const discussion=await client.prepareDiscussion(post);
+          if(discussion.issue){post.issue=discussion.issue;current.issue=post.issue;$('#post-issue').value=post.issue;drafts[current.id]=clone(current);persist();}
+          if(discussion.warning)$('#publish-warning').textContent='评论区尚未建立：'+discussion.warning;
+        }
       }
       const usedAssets=assets.filter(a=>next.posts.some(p=>p.body.includes('/'+a.path)));
       const result=await client.publish(next,published,contentSha,usedAssets,setProgress);
@@ -223,17 +267,19 @@ export async function startEditor(initialData,enhanceMarkdown){
       assets=assets.filter(a=>!usedAssets.some(u=>u.path===a.path));
       persist();renderTree();setProgress('已提交到 GitHub，正在等待网站更新…');
       const publicURL=kind==='post'?postURL(current):'/blog/';
-      toast('提交成功。GitHub Pages 更新通常需要约 1–2 分钟。');
+      toast('提交成功。网站更新需要几分钟，无需重复点击发布。');
       void waitForDeployment(next.revision,publicURL,result.commit);
-    }catch(err){setProgress('未发布 · 草稿已保留');toast(err.message)}
+    }catch(err){await handleAuthError(err);setProgress('未发布 · 草稿已保留');showDialog('文章尚未发布',`<p class="connection-error" role="alert">${e(err.message)}</p><p>你的文字与图片草稿仍保存在此设备，可以继续编辑或导出。</p>`,`<button class="solid-button" id="fix-connection">${client?'检查连接 / 同步':'连接 GitHub'}</button>`);$('#fix-connection').onclick=()=>{closeDialog();connectDialog()};}
     finally{publishing=false;$('#publish-post').disabled=false;$('.editor-shell').inert=false;}
   }
   async function waitForDeployment(revision,url,commit){
-    for(let i=0;i<30;i++){
-      await new Promise(r=>setTimeout(r,4000));
+    latestDeployment=revision;
+    for(let i=0;i<75;i++){
+      await new Promise(r=>setTimeout(r,8000));
+      if(latestDeployment!==revision)return;
       try{const response=await fetch(`/blog/content.json?v=${encodeURIComponent(revision)}`,{cache:'no-store'});if(response.ok&&(await response.json()).revision===revision){$('#publish-status').innerHTML=`网站已更新 · <a href="${url}" target="_blank" rel="noopener">查看文章 ↗</a>`;status.textContent='发布成功 · 网站已更新';toast('网站已更新，可以分享链接了。');return}}catch{}
     }
-    $('#publish-status').innerHTML=`内容已提交，部署仍在进行 · <a href="https://github.com/${REPO}/actions" target="_blank" rel="noopener">查看部署 ↗</a>`;
+    $('#publish-status').innerHTML=`内容已提交，无需重复发布 · <a href="https://github.com/${REPO}/commit/${commit}" target="_blank" rel="noopener">查看提交 ↗</a> · <a href="https://github.com/${REPO}/actions" target="_blank" rel="noopener">查看部署 ↗</a>`;
   }
   $('#publish-post').onclick=()=>publish();
 
@@ -265,6 +311,8 @@ export async function startEditor(initialData,enhanceMarkdown){
   const requested=new URLSearchParams(location.search).get('post');
   const selected=[requested,restoredID,published.posts[0]?.id].find(id=>id&&(drafts[id]||published.posts.some(p=>p.id===id)));
   if(selected)openPost(selected);else createDraft();
-  window.addEventListener('pagehide',()=>{clearTimeout(saveTimer);persist();client?.clear()});
+  restoreTask=restoreConnection();
+  window.addEventListener('pagehide',()=>{clearTimeout(saveTimer);persist();connection.releaseMemory();client=null;contentSha=null;});
+  window.addEventListener('pageshow',event=>{if(event.persisted)restoreTask=restoreConnection()});
   window.addEventListener('beforeunload',ev=>{if(publishing){ev.preventDefault();ev.returnValue='发布正在进行。'}});
 }
