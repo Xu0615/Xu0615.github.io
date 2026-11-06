@@ -60,7 +60,7 @@
     {
       "id": "interpretability-notebook",
       "category": "interpretability",
-      "title": "让理解有迹可循",
+      "title": "Lesson 1: MLLM-SAE",
       "subtitle": "A notebook on interpretability",
       "summary": "从“模型做了什么”，走向“为什么会这样”——也记录解释的边界。",
       "tags": [
@@ -74,5 +74,5 @@
       "body": "> 这是 Interpretability 专题的开篇序言。这里留给模型内部的结构、特征，以及能够被检验的假设。\n\n## 从观察到解释\n\n看到一种行为，是问题的开始。这个栏目希望继续追问：它与模型内部的哪些变化有关？我们如何区分相关性与更强的证据？\n\n## 计划整理的方向\n\n1. **表征与特征**：怎样描述模型内部的信息？一种表示保留了什么、忽略了什么？\n2. **电路与机制**：哪些组件参与了某种行为？证据如何支持这种解释？\n3. **干预与验证**：当我们改变内部状态时，模型行为是否按预期变化？\n\n## 给解释留下边界\n\n一个漂亮的可视化可以帮助理解，但还需要清楚的实验设置、比较对象和检验方法。这里会尽量把观察、假设与结论分别写明。\n\n## 与训练相遇\n\n解释性的问题也可以回到训练本身：能力在什么时候出现？数据变化后，内部表示发生了什么？\n\n这些问题会与 [Pretrain](../pretrain-notebook/) 和 [Data Scaling](../data-scaling-notebook/) 的笔记互相连接。\n"
     }
   ],
-  "revision": "447fa7cd-c1fb-4117-810e-21df14792f0a"
+  "revision": "7f26be02-559b-44d1-bce9-70985c7a33cf"
 }
