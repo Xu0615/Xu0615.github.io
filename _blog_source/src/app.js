@@ -1,4 +1,6 @@
 import './style.css';
+import './sae-lesson.css';
+import { mountSAELessons } from './sae-lesson.js';
 import { escapeHTML as e, renderMarkdown, plainText } from './markdown.js';
 import { searchPosts, postURL, REPO } from './model.js';
 
@@ -25,6 +27,7 @@ document.querySelector('.theme-toggle')?.addEventListener('click',()=>{
 }
 
 export async function enhanceMarkdown(root=document) {
+  mountSAELessons(root);
   root.querySelectorAll('.copy-code').forEach(button=>{
     button.onclick=async()=>{
       try{await navigator.clipboard.writeText(button.parentElement.querySelector('code').textContent);button.textContent='Copied ✓';setTimeout(()=>button.textContent='Copy',1800)}

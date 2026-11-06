@@ -46,6 +46,14 @@ flowchart LR
   D --> A
 \`\`\`
 
+### 多模态 SAE 交互图
+
+本博客内置了 Lesson 1 的三种交互图。代码块语言写 \`mllm-sae\`，内容填 \`flow\`、\`training\` 或 \`dictionary\`。它们分别演示模型与 hook、训练流程、共享字典；数值为教学模拟，不执行模型推理。
+
+\`\`\`mllm-sae
+flow
+\`\`\`
+
 ### 引用与任务
 
 给结论补上参考文献。[^ref]

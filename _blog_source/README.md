@@ -18,6 +18,8 @@ Comments are stored in per-article GitHub Issues. Visitors comment using GitHub;
 
 Markdown supports code highlighting and copying, KaTeX math (`$...$`, `$$...$$`), images, tables, Mermaid diagrams, footnotes/references, links, and task lists. Raw HTML and executable links are disabled. The writing guide creates a local-only example covering the syntax. Chinese and English content are supported. The reader UI offers language and light/dark controls.
 
+Lesson 1 also supports three trusted interactive teaching figures. Use a fenced block with language `mllm-sae` and exactly one of `flow`, `training`, or `dictionary` as its content. Both the writing desk preview and public article render the same component. The figures are bundled, local-only simulations; they do not run model weights or accept arbitrary executable HTML/JavaScript. Unknown block contents remain inert highlighted code. Static hook tables and explanations remain readable without JavaScript. Implementation: `src/sae-lesson.js` and `src/sae-lesson.css`.
+
 ## Source and deployment
 
 The existing academic homepage is preserved. The new site lives under `/blog/` in the same repository and uses its existing GitHub Pages/Jekyll publishing configuration. Additions are static files; no server, OAuth client secret, or third-party CMS is required.

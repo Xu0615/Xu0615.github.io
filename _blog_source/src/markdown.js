@@ -3,6 +3,7 @@ import footnote from 'markdown-it-footnote';
 import taskLists from 'markdown-it-task-lists';
 import katex from 'katex';
 import hljs from 'highlight.js/lib/common';
+import { renderSAELesson } from './sae-lesson.js';
 
 export const escapeHTML = (s = '') => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const math = (s, displayMode) => katex.renderToString(s, { displayMode, throwOnError: false, trust: false, strict: 'ignore', maxExpand: 500 });
@@ -48,6 +49,10 @@ md.renderer.rules.math_inline = (tokens, idx) => math(tokens[idx].content, false
 md.renderer.rules.math_block = (tokens, idx) => `<div class="math-block">${math(tokens[idx].content, true)}</div>`;
 const originalFence = md.renderer.rules.fence;
 md.renderer.rules.fence = (tokens, idx, opts, env, self) => {
+  if (tokens[idx].info.trim() === 'mllm-sae') {
+    const diagram = renderSAELesson(tokens[idx].content.trim());
+    if (diagram) return diagram;
+  }
   if (tokens[idx].info.trim() === 'mermaid') return `<div class="diagram"><pre class="mermaid">${escapeHTML(tokens[idx].content)}</pre></div>`;
   return originalFence(tokens, idx, opts, env, self);
 };
