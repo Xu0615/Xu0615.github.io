@@ -3,6 +3,8 @@ import { escapeHTML as e, renderMarkdown, plainText } from './markdown.js';
 import { searchPosts, postURL, REPO } from './model.js';
 
 const data = JSON.parse(document.querySelector('#site-data').textContent);
+const shouldStart=!document.documentElement.hasAttribute('data-xuwang-started');
+if(shouldStart)document.documentElement.setAttribute('data-xuwang-started','true');
 let language = 'zh';
 try { language = localStorage.getItem('xuwang-language') || 'zh'; } catch {}
 export function applyLanguage() {
@@ -11,6 +13,7 @@ export function applyLanguage() {
   const btn = document.querySelector('.language-toggle');
   if (btn) btn.textContent=language==='zh'?'EN':'中';
 }
+if(shouldStart){
 applyLanguage();
 document.querySelector('.language-toggle')?.addEventListener('click',()=>{ language=language==='zh'?'en':'zh'; try{localStorage.setItem('xuwang-language',language)}catch{} applyLanguage(); });
 document.querySelector('.theme-toggle')?.addEventListener('click',()=>{
@@ -19,6 +22,7 @@ document.querySelector('.theme-toggle')?.addEventListener('click',()=>{
   try{localStorage.setItem('xuwang-theme',theme)}catch{}
   document.dispatchEvent(new Event('theme-change'));
 });
+}
 
 export async function enhanceMarkdown(root=document) {
   root.querySelectorAll('.copy-code').forEach(button=>{
@@ -44,7 +48,7 @@ export async function enhanceMarkdown(root=document) {
 }
 
 const searchDialog=document.querySelector('#search-dialog');
-if(searchDialog){
+if(searchDialog&&shouldStart){
   const input=document.querySelector('#search-input'),results=document.querySelector('#search-results');
   const renderResults=()=>{
     const found=searchPosts(data,input.value);
@@ -58,7 +62,7 @@ if(searchDialog){
   document.addEventListener('keydown',ev=>{if((ev.metaKey||ev.ctrlKey)&&ev.key.toLowerCase()==='k'){ev.preventDefault();open()}});
 }
 
-if(document.body.dataset.page==='home'){
+if(shouldStart&&document.body.dataset.page==='home'){
   const params=new URLSearchParams(location.search);
   let tag=params.get('tag');
   function filter(topic='all'){
@@ -79,7 +83,7 @@ if(document.body.dataset.page==='home'){
   initField();
 }
 
-if(document.body.dataset.page==='article'){
+if(shouldStart&&document.body.dataset.page==='article'){
   enhanceMarkdown();
   const post=data.posts.find(p=>p.id===document.body.dataset.post);
   let commentsLoading=false;
@@ -111,7 +115,7 @@ if(document.body.dataset.page==='article'){
   const headingObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){document.querySelectorAll('.article-toc a').forEach(a=>a.classList.toggle('active',decodeURIComponent(a.hash.slice(1))===entry.target.id));}}),{rootMargin:'0px 0px -65% 0px'});
   headings.forEach(h=>headingObserver.observe(h));
 }
-if(document.body.dataset.page==='editor') import('./editor.js').then(m=>m.startEditor(data,enhanceMarkdown)).catch(error=>{document.querySelector('#save-status').textContent='写作台加载失败，请刷新页面。';console.error(error)});
+if(shouldStart&&document.body.dataset.page==='editor') import('./editor.js').then(m=>m.startEditor(data,enhanceMarkdown)).catch(error=>{document.querySelector('#save-status').textContent='写作台加载失败，请刷新页面。';console.error(error)});
 
 function initField(){
   const canvas=document.querySelector('#field-canvas');if(!canvas)return;

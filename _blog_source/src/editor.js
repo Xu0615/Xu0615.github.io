@@ -64,6 +64,9 @@ async function storeAsset(asset){const db=await assetDB();return new Promise((re
 async function removeAssets(paths){const db=await assetDB();return new Promise((resolve,reject)=>{const tx=db.transaction('assets','readwrite');paths.forEach(p=>tx.objectStore('assets').delete(p));tx.oncomplete=()=>{db.close();resolve()};tx.onerror=()=>reject(tx.error)})}
 
 export async function startEditor(initialData,enhanceMarkdown){
+  const editorRoot=document.querySelector('.editor-shell');
+  if(editorRoot.dataset.editorStarted==='true')return;
+  editorRoot.dataset.editorStarted='true';
   let published=clone(initialData),categories=clone(initialData.categories),drafts={},current=null,client=null,contentSha=null,loading=false,publishing=false,assets=[],previewTimer,saveTimer,toastTimer,view;
   const connection=new DeviceConnection(new DeviceAuthVault(),token=>new GitHubClient(token));
   let restoreTask=null,latestDeployment=null;
