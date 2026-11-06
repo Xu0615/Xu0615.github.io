@@ -1,0 +1,54 @@
+# xuwang · A growing research notebook
+
+Public site: https://xu0615.github.io/blog/
+
+Writing desk: https://xu0615.github.io/blog/editor/
+
+## Writing
+
+1. Open the writing desk. The left sidebar organizes categories and articles.
+2. Choose **新建文章**, enter a title, select a category, and write Markdown on the left. The right panel previews it live.
+3. Text drafts are saved locally in your browser. Images are staged in IndexedDB. **导出 .md** or **导出全部内容** creates a portable backup.
+4. Connect GitHub using a fine-grained personal access token scoped only to `Xu0615.github.io`, with **Contents: Read and write** and **Issues: Read and write**. The token is held only in memory, never written to browser storage or committed. Reconnect after a refresh or closing the tab.
+5. **发布文章** commits the current article, any referenced new images, the category index, prerendered pages, Markdown sources, and sitemap together. Other local drafts are not published. GitHub Pages rebuilds automatically. The desk waits for the public content revision and shows a link when it is live.
+
+**管理栏目** supports adding, renaming, rearranging, and deleting empty categories. To remove a nonempty category, move or delete its articles first. The **更多设置** menu edits the article date and URL ID (new articles only), and deletes an article. Deleting an article leaves its discussion thread and Git history intact.
+
+Comments are stored in per-article GitHub Issues. Visitors comment using GitHub; the website displays public comments. Public GitHub API limits or connectivity may temporarily affect loading; the direct discussion link remains available. No analytics or advertising services are added to the blog.
+
+Markdown supports code highlighting and copying, KaTeX math (`$...$`, `$$...$$`), images, tables, Mermaid diagrams, footnotes/references, links, and task lists. Raw HTML and executable links are disabled. The writing guide creates a local-only example covering the syntax. Chinese and English content are supported. The reader UI offers language and light/dark controls.
+
+## Source and deployment
+
+The existing academic homepage is preserved. The new site lives under `/blog/` in the same repository and uses its existing GitHub Pages/Jekyll publishing configuration. Additions are static files; no server, OAuth client secret, or third-party CMS is required.
+
+`blog/content.json` is the canonical public content. This source folder begins with an underscore so Jekyll does not publish development files. `content.json` here is only the initial seed. The build always prefers `../blog/content.json` so a design rebuild cannot accidentally reset online edits.
+
+Requirements: Node.js 20.19+ or 22+, pnpm.
+
+```sh
+cd _blog_source
+pnpm install
+pnpm build
+pnpm dev
+```
+
+Preview: http://127.0.0.1:4173/blog/
+
+After changing the design, copy `dist/` into the repository's `blog/` folder and commit. Do not delete uploaded images or overwrite `blog/content.json` with the initial seed. Existing published images are carried into the build automatically.
+
+```sh
+pnpm test
+```
+
+Tests cover Markdown features and sanitization, bilingual search, content validation, static rendering, atomic Git publishing, and concurrent-edit rejection. No forced branch update is used.
+
+## Recovery
+
+- An expired/revoked token does not erase drafts. Reconnect to publish.
+- If another editor changed the public content, publishing stops. Use **同步 GitHub**, compare your local draft with the latest public article, and publish deliberately.
+- Browser storage is local to its browser/profile/device. Export a backup before clearing browsing data.
+- All published versions are recoverable through Git history.
+- Search engines can read complete article HTML without JavaScript. `/blog/sitemap.xml` is generated on every publish; Jekyll's sitewide sitemap also discovers the static article pages. Indexing is controlled by each search engine.
+
+The opening posts are editable topic introductions, not imported private research notes or claims of completed experiments.
